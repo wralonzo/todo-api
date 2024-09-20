@@ -1,8 +1,8 @@
 const responseInterceptor = (req, res, next) => {
-  // Guardamos la respuesta original
+  // response origin in format json
   const originalJson = res.json; // Asegúrate de enlazar el contexto
 
-  // Sobrescribimos el método send
+  // override principa method json
   res.json = function (body) {
     let response = {
       success: true,
@@ -45,28 +45,6 @@ const responseInterceptor = (req, res, next) => {
     }
 
     originalJson.call(this, response);
-
-    // // Si la respuesta es un objeto y tiene una propiedad de error, la consideramos como un error
-    // if (res.statusCode >= 400) {
-    //   const errorResponse = {
-    //     success: false,
-    //     message: body.message || "An error occurred",
-    //     timestamp: new Date().toISOString(),
-    //   };
-
-    //   // Llamamos al método original con el nuevo cuerpo de respuesta
-    //   originalJson.call(this, errorResponse); // Retorna aquí para evitar más llamadas
-    // } else {
-    //   // Aquí tratamos las respuestas de éxito
-    //   const successResponse = {
-    //     success: true,
-    //     data: body,
-    //     timestamp: new Date().toISOString(),
-    //   };
-
-    // Llamamos al método original con el nuevo cuerpo de respuesta
-    //   originalJson.call(this, successResponse); // Retorna aquí también
-    // }
   };
 
   next();

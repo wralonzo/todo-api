@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 const { validationResult } = require("express-validator");
+const tokenAuthUser = require("../services/generateToken");
 
 const authController = {
   /**
@@ -62,9 +63,7 @@ const authController = {
       }
 
       // create token: JWT
-      const token = jwt.sign({ id: findUser.id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = tokenAuthUser(findUser.id);
 
       // response object user
       res.status(201).json({
