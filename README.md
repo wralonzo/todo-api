@@ -26,6 +26,7 @@ Descripción breve de tu proyecto y su propósito.
 - MySQL
 - JWT (JSON Web Tokens) para autenticación
 - Swagger para documentación de API
+- Test unitarios con JEST
 
 ## Instalación
 
