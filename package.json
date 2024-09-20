@@ -6,7 +6,6 @@
   "scripts": {
     "local": "node src/app.js",
     "dev": "node src/app.js",
-    "prod": "npm build && node dist/app.js",
     "test": "jest"
   },
   "author": "",
@@ -17,6 +16,7 @@
     "express": "^4.21.0",
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
     "mysql2": "^3.11.3",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",

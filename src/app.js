@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const taskRoutes = require("./routes/taskRoutes");
 const authRoutes = require("./routes/authRoutes");
 const { connectDB } = require("./config/connectionDB");
@@ -8,7 +9,10 @@ const responseInterceptor = require("./shared/middleware/responseInterceptor");
 
 const app = express();
 
+// Logger morgan
+app.use(morgan("combined"));
 app.use(express.json());
+
 app.use(responseInterceptor);
 //Routes to manage task
 app.use("/api/tasks", taskRoutes);
