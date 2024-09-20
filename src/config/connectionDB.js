@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-//Congiguration of database to use in models
+//Configuration of database to use in models
 const sequelize = new Sequelize(
   process.env.DB_DATABASE,
   process.env.DB_USER,
@@ -24,7 +24,7 @@ const connectDB = async () => {
     console.log("Info: Connection has been established successfully.");
 
     //Syncronize tables to DB, OR  force recreate tables
-    // Production disable or define false enviroment
+    // Production disable or define false environment
     await sequelize.sync({
       alter: Boolean(process.env.DB_SYNCRONIZE) || false,
     });
