@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 const { validationResult } = require("express-validator");
 const tokenAuthUser = require("../services/generateToken");
+require("dotenv").config();
 
 const authController = {
   /**
@@ -31,7 +32,6 @@ const authController = {
         idDevice: idDevice,
         lastLogin: new Date(),
       };
-      console.log(payload);
       const userSave = await User.create(payload);
 
       res.status(201).json({ id: userSave.id, username: userSave.user });
@@ -53,13 +53,13 @@ const authController = {
       // find user
       const findUser = await User.findOne({ where: { user } });
       if (!findUser) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "Credenciales incorrectas" });
       }
 
       // compare passwords
       const isMatch = await bcrypt.compare(password, findUser.password);
       if (!isMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
+        return res.status(404).json({ message: "Credenciales incorrectas" });
       }
 
       // create token: JWT

@@ -14,33 +14,41 @@ const responseInterceptor = (req, res, next) => {
     switch (res.statusCode) {
       case 200:
         response.data = body;
-        response.message =
-          response.message || "Recurso consutaldo correctamente.";
+        response.message = body.res || "Recurso consutaldo correctamente.";
         break;
       case 201:
         response.data = body;
-        response.message =
-          response.message || "Recurso almacenado correctamente.";
+        response.message = body.res || "Recurso almacenado correctamente.";
         break;
 
       case 400:
         response.data = body;
+        response.success = false;
         response.message =
           response.message || "Completa todos los campos requeridos.";
         break;
 
       case 401:
         response.data = body;
-        response.message = response.message || "No tienes autorización.";
+        response.success = false;
+        response.message = body.message || "No tienes autorización.";
         break;
 
       case 403:
         response.data = body;
-        response.message = response.message || "Solicita autorización.";
+        response.success = false;
+        response.message = body.message || "Solicita autorización.";
+        break;
+
+      case 404:
+        response.data = body;
+        response.success = false;
+        response.message = body.message || "Recurso no encontrado";
         break;
       default:
+        response.success = false;
         response.message =
-          response.message || "Ha ocurrido un error, intenta de nuevo.";
+          response.body || "Ha ocurrido un error, intenta de nuevo.";
         break;
     }
 

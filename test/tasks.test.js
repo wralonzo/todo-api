@@ -7,6 +7,7 @@ describe("Task API", () => {
 
   // Test to validar login
   beforeAll(async () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
     const response = await request(app)
       .post("/api/auth/login")
       .send({ user: "test1234", password: "test2024" });
@@ -18,8 +19,8 @@ describe("Task API", () => {
     token = response.body.token;
   });
 
-  // test to validate create only task
-  it("Test to create only task", async () => {
+  // test to validate create only
+  it("Test create a new task successfully", async () => {
     const res = await request(app)
       .post("/api/tasks")
       .set("Authorization", `Bearer ${token}`)
